@@ -1,0 +1,65 @@
+[versions]
+agp = "8.6.1"
+cameraCamera2Version = "1.4.0"
+comGoogleDevtoolsKspGradlePlugin = "1.9.0-1.0.13"
+compressorVersion = "3.0.1"
+converterGson = "2.9.0"
+glide = "4.16.0"
+guava = "31.1-android"
+kotlin = "1.9.24"
+coreKtx = "1.15.0"
+junit = "4.13.2"
+junitVersion = "1.2.1"
+espressoCore = "3.6.1"
+appcompat = "1.7.0"
+material = "1.12.0"
+constraintlayout = "2.2.0"
+lifecycleLivedataKtx = "2.8.7"
+lifecycleViewmodelKtx = "2.8.7"
+navigationFragmentKtx = "2.8.4"
+navigationUiKtx = "2.8.4"
+legacySupportV4 = "1.0.0"
+fragmentKtx = "1.8.5"
+cameraViewVersion = "1.4.0"
+cameraLifecycleVersion = "1.4.0"
+retrofit = "2.10.0"
+roomCommon = "2.6.1"
+roomCompiler = "2.6.1"
+activity = "1.9.2"
+loggingInterceptor = "4.11.0"
+
+[libraries]
+androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "converterGson" }
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
+androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+androidx-lifecycle-livedata-ktx = { group = "androidx.lifecycle", name = "lifecycle-livedata-ktx", version.ref = "lifecycleLivedataKtx" }
+androidx-lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycleViewmodelKtx" }
+androidx-navigation-fragment-ktx = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "navigationFragmentKtx" }
+androidx-navigation-ui-ktx = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "navigationUiKtx" }
+glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
+guava = { module = "com.google.guava:guava", version.ref = "guava" }
+androidx-camera-view = { group = "androidx.camera", name = "camera-view", version.ref = "cameraViewVersion" }
+androidx-camera-lifecycle = { group = "androidx.camera", name = "camera-lifecycle", version.ref = "cameraLifecycleVersion" }
+androidx-room-common = { group = "androidx.room", name = "room-common", version.ref = "roomCommon" }
+androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "roomCompiler" }
+androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
+androidx-camera-camera2 = { module = "androidx.camera:camera-camera2", version.ref = "cameraCamera2Version" }
+compiler = { module = "com.github.bumptech.glide:ksp", version.ref = "glide" }
+androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomCommon" }
+androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomCommon" }
+androidx-room-testing = { module = "androidx.room:room-testing", version.ref = "roomCommon" }
+androidx-navigation-safe-args-gradle-plugin = { module = "androidx.navigation:navigation-safe-args-gradle-plugin", version.ref = "navigationFragmentKtx" }
+com-google-devtools-ksp-gradle-plugin = { module = "com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin", version.ref = "comGoogleDevtoolsKspGradlePlugin" }
+retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+logging-interceptor = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "loggingInterceptor" }
+zelory-compressor = { module = "id.zelory:compressor", version.ref = "compressorVersion" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+

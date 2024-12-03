@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/startedFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.storyapp.ui.home.HomeFragment"
+        android:label="@string/title_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_navigation_home_to_addStoryFragment"
+            app:destination="@id/addStoryFragment" />
+        <action
+            android:id="@+id/action_navigation_home_to_detailStoryFragment"
+            app:destination="@id/detailStoryFragment" />
+    </fragment>
+
+    <activity
+        android:id="@+id/loginActivity"
+        android:name="com.example.storyapp.ui.login.LoginActivity"
+        android:label="activity_login"
+        tools:layout="@layout/activity_login" />
+
+    <activity
+        android:id="@+id/registerActivity"
+        android:name="com.example.storyapp.ui.register.RegisterActivity"
+        android:label="activity_register"
+        tools:layout="@layout/activity_register" />
+
+    <fragment
+        android:id="@+id/startedFragment"
+        android:name="com.example.storyapp.ui.StartedFragment"
+        android:label="fragment_started"
+        tools:layout="@layout/fragment_started">
+
+        <action
+            android:id="@+id/action_startedFragment_to_loginActivity"
+            app:destination="@id/loginActivity"
+            app:launchSingleTop="true" />
+
+        <action
+            android:id="@+id/action_startedFragment_to_registerActivity"
+            app:destination="@id/registerActivity"
+            app:launchSingleTop="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/addStoryFragment"
+        android:name="com.example.storyapp.ui.add_story.AddStoryFragment"
+        android:label="fragment_add_story"
+        tools:layout="@layout/fragment_add_story" />
+
+    <fragment
+        android:id="@+id/detailStoryFragment"
+        android:name="com.example.storyapp.ui.detail_story.DetailStoryFragment"
+        android:label="fragment_detail_story"
+        tools:layout="@layout/fragment_detail_story">
+        <argument
+            android:name="storyId"
+            app:argType="string" />
+    </fragment>
+</navigation>

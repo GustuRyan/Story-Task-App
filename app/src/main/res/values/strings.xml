@@ -1,0 +1,37 @@
+<resources>
+    <string name="app_name">Story App</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="welcome_back">Hai! Selamat datang kembali</string>
+    <string name="ready_description">Sudah siap untuk berbagi cerita?</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="login">Masuk</string>
+    <string name="not_have_account">Belum memiliki akun?</string>
+    <string name="register">Daftar</string>
+    <string name="welcome">Hai! Selamat datang</string>
+    <string name="fill_up_description">Lengkapi data di bawah untuk berbagi cerita</string>
+    <string name="username">Username</string>
+    <string name="confirm_password">Konfirmasi Password</string>
+    <string name="have_an_account">Sudah memiliki akun?</string>
+    <string name="story_owner">Story Owner</string>
+    <string name="story_description">Story Description</string>
+    <string name="date">tanggal</string>
+    <string name="welcome_to_story_app">Selamat datang di aplikasi cerita!</string>
+    <string name="started_description">Ingin berbagi cerita dengan teman-teman lain? Kamu bisa mencoba menggunakan aplikasi ini, karena berbagi cerita menjadi lebih mudah!</string>
+    <string name="from_gustu_ryan_2024">From Gustu Ryan. 2024</string>
+    <string name="story_list">Daftar Cerita</string>
+    <string name="home_description">Berikut merupakan kumpulan cerita untuk kamu</string>
+    <string name="password_not_match">Mohon masukan password yang sama</string>
+    <string name="register_success">Registrasi berhasil!</string>
+    <string name="register_failed">Registrasi Anda gagal!</string>
+    <string name="add_button">Add Button</string>
+    <string name="camera">Camera</string>
+    <string name="gallery">Gallery</string>
+    <string name="description_for_story">Deskripsi untuk cerita</string>
+    <string name="upload">Upload</string>
+    <string name="story_description_input">Masukan deskripsi cerita</string>
+</resources>
