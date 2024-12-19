@@ -9,6 +9,8 @@ import android.os.Build
 import android.os.Environment
 import android.provider.MediaStore
 import androidx.core.content.FileProvider
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOf
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
@@ -71,4 +73,8 @@ fun compressImage(context: Context, imageUri: Uri, maxSizeInMB: Int = 1): File? 
     } while (quality > 0)
 
     return compressedFile
+}
+
+class FakeFlowDelegate<T> {
+    val flow: Flow<T> = flowOf() // or any other default value/implementation
 }
