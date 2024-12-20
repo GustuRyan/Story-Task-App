@@ -16,6 +16,10 @@
         <action
             android:id="@+id/action_navigation_home_to_detailStoryFragment"
             app:destination="@id/detailStoryFragment" />
+        <argument
+            android:name="shouldRefresh"
+            app:argType="boolean"
+            android:defaultValue="false" />
     </fragment>
 
     <activity
@@ -51,7 +55,16 @@
         android:id="@+id/addStoryFragment"
         android:name="com.example.storyapp.ui.add_story.AddStoryFragment"
         android:label="fragment_add_story"
-        tools:layout="@layout/fragment_add_story" />
+        tools:layout="@layout/fragment_add_story">
+        <action
+            android:id="@+id/action_addStoryFragment_to_homeFragment"
+            app:destination="@id/homeFragment">
+            <argument
+                android:name="shouldRefresh"
+                app:argType="boolean"
+                android:defaultValue="false" />
+        </action>
+    </fragment>
 
     <fragment
         android:id="@+id/detailStoryFragment"
