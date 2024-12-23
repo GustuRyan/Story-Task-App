@@ -1,19 +1,28 @@
 package com.example.storyapp.ui.home
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
+import androidx.paging.LoadState
+import androidx.paging.PagingData
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.storyapp.ui.maps.MapsActivity
 import com.example.storyapp.R
+import com.example.storyapp.data.repository.StoryRepository
 import com.example.storyapp.databinding.FragmentHomeBinding
+import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment() {
 
@@ -22,26 +31,36 @@ class HomeFragment : Fragment() {
 
     private lateinit var homeViewModel: HomeViewModel
     private lateinit var homeAdapter: HomeAdapter
+    private lateinit var loadStateAdapter: LoadingStateAdapter
 
     private lateinit var navController: NavController
     private var backPressedTime: Long = 0
+
+    private lateinit var storyRepository: StoryRepository
+    private val args: HomeFragmentArgs by navArgs()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        homeViewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
+
+        // Initialize storyRepository
+        storyRepository = StoryRepository()
+
+        // Instantiate ViewModel using ViewModelFactory
+        homeViewModel = ViewModelProvider(
+            this,
+            ViewModelFactory(storyRepository)
+        ).get(HomeViewModel::class.java)
 
         binding.rvStoryList.visibility = View.GONE
-
         setupRecyclerView()
 
-        homeViewModel.stories.observe(viewLifecycleOwner) { stories ->
-            if (stories != null) {
-                homeAdapter.updateData(stories)
-                binding.rvStoryList.visibility = View.VISIBLE
-                binding.progressBar.visibility = View.GONE
+        lifecycleScope.launchWhenStarted {
+            homeViewModel.stories.collect { pagingData ->
+                homeAdapter.submitData(pagingData)
             }
         }
 
@@ -50,9 +69,25 @@ class HomeFragment : Fragment() {
             binding.progressBar.visibility = View.GONE
         }
 
-        homeViewModel.fetchStories()
-
         return binding.root
+    }
+
+    private fun setupRecyclerView() {
+        binding.rvStoryList.layoutManager = LinearLayoutManager(requireContext())
+
+        homeAdapter = HomeAdapter { storyId ->
+            val action = HomeFragmentDirections.actionNavigationHomeToDetailStoryFragment(storyId)
+            findNavController().navigate(action)
+        }
+
+        loadStateAdapter = LoadingStateAdapter { homeAdapter.retry() }
+
+        binding.rvStoryList.adapter = homeAdapter.withLoadStateFooter(loadStateAdapter)
+
+        homeAdapter.addLoadStateListener { loadState ->
+            binding.progressBar.isVisible = loadState.refresh is LoadState.Loading
+            binding.rvStoryList.isVisible = loadState.refresh is LoadState.NotLoading
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -68,6 +103,14 @@ class HomeFragment : Fragment() {
             logout()
         }
 
+        binding.buttonMaps.setOnClickListener {
+            navigateToMap()
+        }
+
+        if (args.shouldRefresh) {
+            refreshData()
+        }
+
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 val currentTime = System.currentTimeMillis()
@@ -81,6 +124,17 @@ class HomeFragment : Fragment() {
         })
     }
 
+    private fun refreshData() {
+        homeViewModel.refresh()
+        Toast.makeText(requireContext(), "Memuat ulang data...", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun navigateToMap() {
+        val intent = Intent(requireContext(), MapsActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
+    }
+
     private fun logout() {
         val sharedPreferences = requireActivity().getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
         with(sharedPreferences.edit()) {
@@ -90,19 +144,7 @@ class HomeFragment : Fragment() {
         }
 
         Toast.makeText(requireContext(), "Logout berhasil", Toast.LENGTH_SHORT).show()
-
         navController.navigate(R.id.startedFragment)
-    }
-
-    private fun setupRecyclerView() {
-        binding.rvStoryList.layoutManager = LinearLayoutManager(requireContext())
-
-        homeAdapter = HomeAdapter(emptyList()) { storyId ->
-            val action = HomeFragmentDirections.actionNavigationHomeToDetailStoryFragment(storyId)
-            findNavController().navigate(action)
-        }
-
-        binding.rvStoryList.adapter = homeAdapter
     }
 
     override fun onDestroyView() {
