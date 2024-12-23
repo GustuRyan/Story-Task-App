@@ -42,7 +42,7 @@
 
             <TextView
                 android:id="@+id/tv_home_description"
-                android:layout_width="240dp"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:text="@string/home_description"
                 android:layout_marginStart="8dp"
@@ -50,12 +50,25 @@
                 app:layout_constraintTop_toBottomOf="@id/tv_home_title" />
 
             <ImageButton
+                android:id="@+id/button_maps"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_baseline_map_24"
+                android:background="@drawable/bg_rounded_full"
+                android:padding="12dp"
+                android:layout_marginEnd="8dp"
+                android:backgroundTint="?attr/colorSecondary"
+                app:layout_constraintEnd_toStartOf="@id/button_logout"
+                app:layout_constraintTop_toTopOf="@id/tv_home_title"
+                app:layout_constraintBottom_toBottomOf="@id/tv_home_description" />
+
+            <ImageButton
                 android:id="@+id/button_logout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_logout_24"
                 android:background="@drawable/bg_rounded_full"
-                android:padding="16dp"
+                android:padding="12dp"
                 android:layout_marginEnd="8dp"
                 android:backgroundTint="?attr/colorSecondary"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -76,7 +89,6 @@
                 android:id="@+id/rv_story_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="8dp"
                 android:layout_marginTop="24dp"
                 android:paddingVertical="4dp"
                 app:layout_constraintEnd_toEndOf="parent"
