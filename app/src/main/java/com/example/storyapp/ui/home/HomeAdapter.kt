@@ -2,20 +2,16 @@ package com.example.storyapp.ui.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.storyapp.data.remote.response.Story
 import com.example.storyapp.databinding.FragmentCardStoryBinding
 
 class HomeAdapter(
-    private var stories: List<Story>,
     private val onStoryClicked: (String) -> Unit
-) : RecyclerView.Adapter<HomeAdapter.StoryViewHolder>() {
-
-    fun updateData(newStories: List<Story>) {
-        stories = newStories
-        notifyDataSetChanged()
-    }
+) : PagingDataAdapter<Story, HomeAdapter.StoryViewHolder>(DIFF_CALLBACK) {
 
     inner class StoryViewHolder(private val binding: FragmentCardStoryBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -23,13 +19,11 @@ class HomeAdapter(
         fun bind(story: Story) {
             with(binding) {
                 tvItemName.text = story.name
-
                 tvDate.text = if (story.createdAt.length >= 10) {
                     story.createdAt.substring(0, 10)
                 } else {
                     story.createdAt
                 }
-
                 tvDescriptionStory.text = story.description
 
                 Glide.with(root.context)
@@ -53,10 +47,20 @@ class HomeAdapter(
     }
 
     override fun onBindViewHolder(holder: StoryViewHolder, position: Int) {
-        holder.bind(stories[position])
+        getItem(position)?.let { story ->
+            holder.bind(story)
+        }
     }
 
-    override fun getItemCount(): Int = stories.size
+    companion object {
+        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Story>() {
+            override fun areItemsTheSame(oldItem: Story, newItem: Story): Boolean {
+                return oldItem.id == newItem.id
+            }
+
+            override fun areContentsTheSame(oldItem: Story, newItem: Story): Boolean {
+                return oldItem == newItem
+            }
+        }
+    }
 }
-
-
