@@ -13,6 +13,5 @@ class App : Application() {
     companion object {
         @SuppressLint("StaticFieldLeak")
         lateinit var context: Context
-            private set
     }
 }
